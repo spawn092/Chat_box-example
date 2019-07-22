@@ -23,11 +23,19 @@
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
       $(function () {
+          $('#m').on('keyup',function(event){
+              if($('#m').val().length>2){
+                  $('button').prop('disbaled', false)
+              }else{
+                $('button').prop('disbaled', true)
+              }
+          })
         var socket = io();
         $('form').submit(function(e){
           e.preventDefault(); // prevents page reloading
           socket.emit('chat message', $('#m').val());
           $('#m').val('');
+          $('button').prop('disbaled', true)
           return false;
         });
         socket.on('chat message', function(msg){
